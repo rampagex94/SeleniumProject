@@ -12,7 +12,7 @@ public class Main {
 
 
         RegisterTest register = new RegisterTest();
-        register.registrationWithValidCredentials();
+//        register.registrationWithValidCredentials();
     }
 }
 

@@ -1,5 +1,6 @@
 import jdk.swing.interop.SwingInterOpUtils;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -8,7 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class WishlistTest {
-    WebDriver driver;
+    private WebDriver driver;
 
     @Before
     public void openDriver() {
@@ -19,30 +20,20 @@ public class WishlistTest {
     }
 
     @Test
-    public void addItemToWishlist() {
-        driver.findElement(By.cssSelector("#nav > ol > li.level0.nav-5.parent > a")).click();
+    public void addItemToWishlistWithoutAccount() {
+        driver.findElement(By.cssSelector(".nav-5.parent a")).click();
         driver.findElement(By.id("product-collection-image-403")).click();
-        driver.findElement(By.cssSelector("#swatch81 > span.swatch-label")).click();
-        driver.findElement(By.cssSelector("#product_addtocart_form > div.product-shop > div.product-options-bottom > ul.add-to-links > li:nth-child(1) > a")).click();
+        driver.findElement(By.cssSelector(".swatch-label img")).click();
+        driver.findElement(By.cssSelector(".swatch-label")).click();
+        driver.findElement(By.cssSelector(".link-wishlist")).click();
 
-        WebElement dashboardTextElement = driver.findElement(By.cssSelector("body > div > div.page > div.main-container.col1-layout > div > div > div.account-login > div > h1"));
-        if (dashboardTextElement.isDisplayed()) {
-            System.out.println("User needs to create an account first!");
-        } else {
-            System.out.println("Item was succesfully added to wishlist!");
-        }
-
-//         String textfromElement = driver.findElement(By.cssSelector("body > div > div.page > div.main-container.col1-layout > div > div > div.account-login > div > h1")).getText();
-//         if (textfromElement.equals("LOGIN OR CREATE AN ACCOUNT")){
-//             System.out.println("User needs to register first!");
-//         } else {
-//             System.out.println("Item succesfully added to wishlist!");
-//         }
+        WebElement youNeedAnAccountToAddToWishlist = driver.findElement(By.cssSelector(".page-title"));
+        Assert.assertTrue(youNeedAnAccountToAddToWishlist.isDisplayed());
     }
 
     @After
     public void close() {
-        driver.close();
+//        driver.close();
     }
 
 }
